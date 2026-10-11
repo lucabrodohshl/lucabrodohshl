@@ -26,6 +26,11 @@ User-agent: Googlebot
 User-agent: Bingbot
 User-agent: Applebot
 User-agent: DuckDuckBot
+User-agent: YandexBot
+Allow: /
+
+# European index (Qwant / Ecosia "Staan")
+User-agent: Qwantbot
 Allow: /
 
 # OpenAI: OAI-SearchBot = ChatGPT search results; GPTBot = training of
