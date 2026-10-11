@@ -1,0 +1,35 @@
+---
+title: Publications
+seo_title: "Publications — Luca Brodo"
+description: "Publications by Luca Brodo on property refinement in LTL and CTL, timed refinement for real-time systems (RWTBS), self-optimizing systems, digital twins and social norm verification."
+permalink: /publications/
+---
+<header class="page-head">
+  <h1>Publications</h1>
+  <p class="page-head__lede">Selected papers first, then all peer-reviewed papers and preprints, newest first. Each title opens a page with the full abstract, a summary, links to the PDF and DOI, and a BibTeX citation. Also listed on <a href="{{ site.author.orcid }}">ORCID</a>.</p>
+</header>
+
+{%- assign featured = site.publications | where: "featured", true | sort: "featured_order" %}
+{%- if featured.size > 0 %}
+<section class="year-group year-group--selected" aria-labelledby="selected">
+  <h2 class="year-group__year" id="selected">Selected</h2>
+  <div class="paper-list">
+    {%- for p in featured %}
+    {% include paper-card.html paper=p heading="h3" %}
+    {%- endfor %}
+  </div>
+</section>
+{%- endif %}
+
+{%- assign pubs = site.publications | sort: "date" | reverse %}
+{%- assign by_year = pubs | group_by_exp: "p", "p.date | date: '%Y'" %}
+{%- for year in by_year %}
+<section class="year-group" aria-labelledby="y{{ year.name }}">
+  <h2 class="year-group__year" id="y{{ year.name }}">{{ year.name }}</h2>
+  <div class="paper-list">
+    {%- for p in year.items %}
+    {% include paper-card.html paper=p heading="h3" %}
+    {%- endfor %}
+  </div>
+</section>
+{%- endfor %}

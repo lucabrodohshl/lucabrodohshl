@@ -1,0 +1,60 @@
+---
+layout: null
+permalink: /robots.txt
+---
+# robots.txt for the academic website of Luca Brodo.
+#
+# Policy: the whole public site (pages, PDFs, CSS, images) is open to search
+# engines and to AI search/retrieval and training crawlers, because the goal
+# is broad discoverability of the research. Nothing is disallowed.
+#
+# IMPORTANT: crawlers only read robots.txt at the root of a host
+# (https://lucabrodohshl.github.io/robots.txt). While this site is served as
+# a GitHub Pages *project* site under /lucabrodohshl/, this file is published
+# at /lucabrodohshl/robots.txt and is informational only. See README.md.
+
+# Default for every crawler: allow everything.
+User-agent: *
+Allow: /
+
+# Explicit groups document the decision for crawlers named in current
+# official vendor documentation. A crawler that matches a named group uses
+# only that group, so every group repeats "Allow: /".
+
+# Search engines
+User-agent: Googlebot
+User-agent: Bingbot
+User-agent: Applebot
+User-agent: DuckDuckBot
+Allow: /
+
+# OpenAI: OAI-SearchBot = ChatGPT search results; GPTBot = training of
+# generative models; ChatGPT-User = user-initiated fetches. All allowed.
+User-agent: OAI-SearchBot
+User-agent: GPTBot
+User-agent: ChatGPT-User
+Allow: /
+
+# Anthropic: Claude-SearchBot = search; ClaudeBot = training;
+# Claude-User = user-initiated fetches. All allowed.
+User-agent: Claude-SearchBot
+User-agent: ClaudeBot
+User-agent: Claude-User
+Allow: /
+
+# Perplexity: PerplexityBot = search index; Perplexity-User = user-initiated.
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+Allow: /
+
+# Product tokens controlling use for generative AI (Gemini, Apple
+# Intelligence). They do not affect search indexing. Allowed.
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+Allow: /
+
+# Common Crawl (used by many research and AI datasets).
+User-agent: CCBot
+Allow: /
+
+Sitemap: {{ site.url }}{{ site.baseurl }}/sitemap.xml

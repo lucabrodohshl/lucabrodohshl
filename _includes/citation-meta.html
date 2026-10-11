@@ -1,0 +1,45 @@
+{%- comment -%}
+  Highwire Press-style citation_* tags read by Google Scholar and other
+  scholarly indexers. Only fields present in the paper's front matter are
+  emitted.
+{%- endcomment -%}
+{%- assign site_root = site.url | append: site.baseurl %}
+<!-- Scholarly citation metadata -->
+<meta name="citation_title" content="{{ page.title | escape }}">
+{%- for author in page.authors %}
+<meta name="citation_author" content="{{ author | escape }}">
+{%- endfor %}
+<meta name="citation_publication_date" content="{{ page.date | date: '%Y/%m/%d' }}">
+{%- if page.venue_type == "journal" %}
+<meta name="citation_journal_title" content="{{ page.citation_venue | escape }}">
+{%- elsif page.venue_type == "conference" %}
+<meta name="citation_conference_title" content="{{ page.citation_venue | escape }}">
+{%- endif %}
+{%- if page.volume %}
+<meta name="citation_volume" content="{{ page.volume }}">
+{%- endif %}
+{%- if page.issue %}
+<meta name="citation_issue" content="{{ page.issue }}">
+{%- endif %}
+{%- if page.firstpage %}
+<meta name="citation_firstpage" content="{{ page.firstpage }}">
+{%- endif %}
+{%- if page.lastpage %}
+<meta name="citation_lastpage" content="{{ page.lastpage }}">
+{%- endif %}
+{%- if page.publisher %}
+<meta name="citation_publisher" content="{{ page.publisher | escape }}">
+{%- endif %}
+{%- if page.doi %}
+<meta name="citation_doi" content="{{ page.doi }}">
+{%- elsif page.zenodo_doi %}
+<meta name="citation_doi" content="{{ page.zenodo_doi }}">
+{%- endif %}
+{%- for kw in page.keywords %}
+<meta name="citation_keywords" content="{{ kw | escape }}">
+{%- endfor %}
+<meta name="citation_language" content="en">
+<meta name="citation_abstract_html_url" content="{{ page.url | prepend: site_root }}">
+{%- if page.pdf %}
+<meta name="citation_pdf_url" content="{{ page.pdf | prepend: site_root }}">
+{%- endif %}

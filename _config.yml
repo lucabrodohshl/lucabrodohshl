@@ -1,0 +1,78 @@
+# Site configuration — Luca Brodo, academic website (Jekyll)
+#
+# Deployment: GitHub Pages project site for the repository
+# lucabrodohshl/lucabrodohshl, served at
+#   https://lucabrodohshl.github.io/lucabrodohshl/
+# `url` + `baseurl` are used for canonical links, Open Graph, citation_pdf_url,
+# JSON-LD and the sitemap. If you move the site to a custom domain or to a
+# user site (repository `lucabrodohshl.github.io`), set baseurl to "" and
+# update url accordingly.
+
+title: Luca Brodo
+description: >-
+  Luca Brodo is a researcher in formal methods and software engineering at
+  Hamm-Lippstadt University of Applied Sciences, working on property
+  refinement in temporal logic, timed refinement for real-time systems, and
+  verifiable self-adaptive cyber-physical systems.
+url: "https://lucabrodohshl.github.io"
+baseurl: "/lucabrodohshl"
+lang: en
+
+author:
+  name: Luca Brodo
+  affiliation: Hamm-Lippstadt University of Applied Sciences
+  affiliation_url: https://www.hshl.de/
+  location: Lippstadt, Germany
+  email: luca.brodo@hshl.de
+  image: /assets/img/luca-brodo-1200.jpg
+  orcid: https://orcid.org/0009-0005-1437-9861
+  github: https://github.com/lucabrodohshl/
+  linkedin: https://www.linkedin.com/in/luca-brodo-5a752b192/
+  supervisor:
+    name: Stefan Henkler
+    url: https://shenkler.github.io/stefanhenkler.github.io/
+
+# Optional: paste the content value of Google Search Console's HTML-tag
+# verification here (only the token, not the whole <meta> tag).
+google_site_verification: ""
+# Optional: Bing Webmaster Tools verification token.
+bing_site_verification: ""
+
+collections:
+  publications:
+    output: true
+    permalink: /publications/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: publications
+    values:
+      layout: paper
+  - scope:
+      path: ""
+    values:
+      layout: default
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter_opts:
+    disable: true
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - .github
+  - .bundle
+  - scripts
+  # The original full-resolution headshot is kept in the repository as the
+  # supplied source asset; the site serves optimized copies from assets/img/.
+  - assets/logo/picture.jpg
+  # Supplied original PDFs are kept here unchanged. The site serves copies
+  # next to each paper page (publications/<slug>/*.pdf), as Google Scholar
+  # expects the PDF in the same directory as the HTML abstract page; excluding
+  # the originals avoids publishing the same PDF under two URLs.
+  - assets/paper

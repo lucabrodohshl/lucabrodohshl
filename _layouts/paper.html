@@ -1,0 +1,104 @@
+---
+layout: default
+---
+{%- assign site_root = site.url | append: site.baseurl -%}
+<article class="paper" lang="en">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="{{ '/publications/' | relative_url }}">Publications</a>
+    <span aria-hidden="true">/</span>
+    <span>{{ page.venue_short }}</span>
+  </nav>
+
+  <header class="paper__header">
+    <h1 class="paper__title">{{ page.title }}</h1>
+    <p class="paper__authors">
+      {%- for author in page.authors -%}
+        {%- if author == site.author.name -%}<span class="me">{{ author }}</span>{%- else -%}{{ author }}{%- endif -%}
+        {%- unless forloop.last -%}, {% endunless -%}
+      {%- endfor -%}
+    </p>
+    <p class="paper__venue">
+      {{ page.venue }}{% if page.venue_detail %}, {{ page.venue_detail }}{% endif %}
+      {%- if page.award %} <strong class="award">{{ page.award }}</strong>{% endif %}
+    </p>
+  </header>
+
+  <dl class="facts">
+    <div><dt>Status</dt><dd>{{ page.status }}{% if page.status_note %} <span class="facts__note">— {{ page.status_note }}</span>{% endif %}</dd></div>
+    <div><dt>Date</dt><dd><time datetime="{{ page.date | date: '%Y-%m-%d' }}">{{ page.date | date: "%-d %B %Y" }}</time>{% if page.date_note %} <span class="facts__note">({{ page.date_note }})</span>{% endif %}</dd></div>
+    {%- if page.doi %}
+    <div><dt>DOI</dt><dd><a href="https://doi.org/{{ page.doi }}">{{ page.doi }}</a></dd></div>
+    {%- endif %}
+    {%- if page.zenodo_doi %}
+    <div><dt>Zenodo DOI</dt><dd><a href="https://doi.org/{{ page.zenodo_doi }}">{{ page.zenodo_doi }}</a></dd></div>
+    {%- endif %}
+    {%- if page.license_label %}
+    <div><dt>License</dt><dd><a href="{{ page.license }}">{{ page.license_label }}</a></dd></div>
+    {%- endif %}
+  </dl>
+
+  <ul class="actions" aria-label="Paper links">
+    {%- if page.pdf %}
+    <li><a class="btn btn--primary" href="{{ page.pdf | relative_url }}" type="application/pdf">Download PDF<span class="visually-hidden">: {{ page.title }}</span></a>{% if page.pdf_note %}<span class="actions__note">{{ page.pdf_note }}</span>{% endif %}</li>
+    {%- endif %}
+    {%- if page.doi %}
+    <li><a class="btn" href="https://doi.org/{{ page.doi }}">{{ page.publisher | default: "Publisher" }} version of record (DOI)</a></li>
+    {%- endif %}
+    {%- if page.zenodo %}
+    <li><a class="btn" href="{{ page.zenodo }}">Zenodo record</a></li>
+    {%- endif %}
+    {%- if page.code %}
+    <li><a class="btn" href="{{ page.code }}">{{ page.code_label | default: "Code and data" }}</a></li>
+    {%- endif %}
+  </ul>
+
+  <section class="paper__section" aria-labelledby="abstract">
+    <h2 id="abstract">Abstract</h2>
+    <div class="abstract">
+      {{ page.abstract | markdownify }}
+    </div>
+  </section>
+
+  <section class="paper__section paper__summary" aria-labelledby="summary">
+    <h2 id="summary">About this paper</h2>
+    {{ content }}
+  </section>
+
+  {%- if page.keywords and page.keywords.size > 0 %}
+  <section class="paper__section" aria-labelledby="keywords">
+    <h2 id="keywords">Keywords</h2>
+    <ul class="tags tags--plain">
+      {%- for kw in page.keywords %}<li>{{ kw }}</li>{% endfor %}
+    </ul>
+  </section>
+  {%- endif %}
+
+  <section class="paper__section" aria-labelledby="cite">
+    <h2 id="cite">Cite this paper</h2>
+    {%- if page.cite_note %}<p class="muted">{{ page.cite_note }}</p>{% endif %}
+    <div class="citation">
+      <div class="citation__bar">
+        <span class="citation__label" id="bibtex-label">BibTeX</span>
+        <button type="button" class="citation__copy" data-copy-target="bibtex" aria-describedby="bibtex-label" hidden>Copy</button>
+      </div>
+      <pre id="bibtex" class="citation__code" tabindex="0" aria-labelledby="bibtex-label"><code>{{ page.bibtex | strip | escape }}</code></pre>
+      <p class="citation__status" role="status" aria-live="polite"></p>
+    </div>
+  </section>
+
+  {%- assign related_found = "" | split: "" -%}
+  {%- for slug in page.related -%}
+    {%- assign rel = site.publications | where: "slug", slug | first -%}
+    {%- if rel and rel.url != page.url -%}{%- assign related_found = related_found | push: rel -%}{%- endif -%}
+  {%- endfor -%}
+  {%- if related_found.size > 0 %}
+  <section class="paper__section related" aria-labelledby="related">
+    <h2 id="related">Related papers</h2>
+    <div class="paper-list">
+      {%- for rel in related_found %}
+      {% include paper-card.html paper=rel heading="h3" %}
+      {%- endfor %}
+    </div>
+  </section>
+  {%- endif %}
+</article>

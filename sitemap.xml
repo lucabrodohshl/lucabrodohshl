@@ -1,0 +1,15 @@
+---
+layout: null
+permalink: /sitemap.xml
+---
+<?xml version="1.0" encoding="UTF-8"?>
+{%- assign site_root = site.url | append: site.baseurl %}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>{{ site_root }}/</loc></url>
+  <url><loc>{{ site_root }}/publications/</loc></url>
+  {%- assign pubs = site.publications | sort: "date" | reverse %}
+  {%- for p in pubs %}
+  <url><loc>{{ p.url | prepend: site_root }}</loc>{% if p.last_modified %}<lastmod>{{ p.last_modified | date: "%Y-%m-%d" }}</lastmod>{% endif %}</url>
+  {%- endfor %}
+  <url><loc>{{ site_root }}/impressum/</loc></url>
+</urlset>

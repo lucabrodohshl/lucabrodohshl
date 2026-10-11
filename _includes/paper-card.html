@@ -1,0 +1,19 @@
+{%- comment -%}
+  Publication card. Usage: {% include paper-card.html paper=p heading="h3" %}
+{%- endcomment -%}
+{%- assign p = include.paper -%}
+{%- assign h = include.heading | default: "h3" -%}
+<article class="paper-card">
+  <{{ h }} class="paper-card__title"><a href="{{ p.url | relative_url }}">{{ p.title }}</a></{{ h }}>
+  <p class="paper-card__venue">
+    <span>{{ p.venue_short }}</span>
+    {%- if p.status != "Published" %} <span class="status">{{ p.status }}</span>{% endif %}
+    {%- if p.award %} <strong class="award">{{ p.award_short | default: p.award }}</strong>{% endif %}
+  </p>
+  <p class="paper-card__desc">{{ p.summary_short }}</p>
+  {%- if p.topics and p.topics.size > 0 %}
+  <ul class="tags" aria-label="Topics">
+    {%- for t in p.topics %}<li>{{ t }}</li>{% endfor %}
+  </ul>
+  {%- endif %}
+</article>

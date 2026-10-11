@@ -1,0 +1,21 @@
+---
+layout: null
+permalink: /llms.txt
+---
+{%- assign site_root = site.url | append: site.baseurl -%}
+# Luca Brodo
+
+> Researcher in formal methods and software engineering at {{ site.author.affiliation }} (Lippstadt, Germany). Research on property refinement for temporal logic (LTL, CTL), Relaxed Weak Timed Bisimulation (RWTBS) for post-deployment updates of real-time systems, runtime self-optimization, digital twins, and verification of social norms.
+
+This file is a short optional index. The canonical content is the HTML site and its sitemap: {{ site_root }}/sitemap.xml
+
+## Pages
+
+- [Home]({{ site_root }}/): research overview and profiles
+- [Publications]({{ site_root }}/publications/): all papers with abstracts, PDFs, DOIs and BibTeX
+
+## Papers
+{% assign pubs = site.publications | sort: "date" | reverse %}
+{%- for p in pubs %}
+- [{{ p.title }}]({{ p.url | prepend: site_root }}): {{ p.venue_short }}{% if p.award %}, {{ p.award }}{% endif %}. {{ p.summary_short }}
+{%- endfor %}
