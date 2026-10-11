@@ -19,8 +19,6 @@ status_note: "Version of record available from ACM via the DOI."
 doi: "10.1145/3837062.3838903"
 pdf: /publications/social-norm-pattern-catalog-models-2026/brodo-2026-social-norm-pattern-catalog-models.pdf  # served next to the paper page (Google Scholar guideline); original kept in assets/paper/norms.pdf
 pdf_note: "Authors' version (CC BY 4.0)"
-code: https://github.com/lucabrodohshl/SocialNormPatternCatalogue
-code_label: "Pattern catalog (GitHub)"
 license: https://creativecommons.org/licenses/by/4.0/
 license_label: "CC BY 4.0"
 featured: false
@@ -73,7 +71,7 @@ The running example is a fleet of autonomous tractors sharing peri-urban roads w
 
 ### Results
 
-The catalog is evaluated on seven UPPAAL models from smart-farming and autonomous-transport scenarios, addressing the reusability of the patterns, verification performance and scalability, the resolution of conflicts between norms, and the quantitative impact of social norms on behaviour, i.e. the trade-off between social compliance and performance. The patterns are publicly available on GitHub.
+The catalog is evaluated on seven UPPAAL models from smart-farming and autonomous-transport scenarios, addressing the reusability of the patterns, verification performance and scalability, the resolution of conflicts between norms, and the quantitative impact of social norms on behaviour, i.e. the trade-off between social compliance and performance.
 
 ### Why it matters
 

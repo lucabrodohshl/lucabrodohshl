@@ -24,8 +24,6 @@ status_note: "Version of record available from ACM via the DOI."
 doi: "10.1145/3808127"
 pdf: /publications/property-refinement-ltl-fse-2026/brodo-2026-property-refinement-ltl-fse.pdf  # served next to the paper page (Google Scholar guideline); original kept in assets/paper/FSELTL.pdf
 pdf_note: "Authors' version (CC BY 4.0)"
-code: https://github.com/PizzeriaAurora/LTLFSE
-code_label: "Replication package (GitHub)"
 license: https://creativecommons.org/licenses/by/4.0/
 license_label: "CC BY 4.0"
 featured: true   # shown under "Selected publications"
@@ -85,8 +83,8 @@ This refinement analysis is inserted as an additional step between formalisation
 
 ### Contribution and results
 
-According to the evaluation reported in the paper, the approach reduces the number of required verification tasks by up to 75% and speeds up model checking by up to three orders of magnitude, with a one-time overhead of 0.035% for the refinement analysis itself. Because the analysis is done once on the specification, its benefit compounds as a system is re-verified over a long or agile development lifecycle. The paper also discusses limitations, notably the exponential cost of automaton construction, and outlines heuristics and toolchain integration as future work. A replication package is publicly available.
+According to the evaluation reported in the paper, the approach reduces the number of required verification tasks by up to 75% and speeds up model checking by up to three orders of magnitude, with a one-time overhead of 0.035% for the refinement analysis itself. Because the analysis is done once on the specification, its benefit compounds as a system is re-verified over a long or agile development lifecycle. The paper also discusses limitations, notably the exponential cost of automaton construction, and outlines heuristics and toolchain integration as future work.
 
 ### Why it matters
 
-For researchers working on model checking, requirements engineering or specification quality, the paper offers both a formal semantics for comparing the strength of temporal properties and a practical way to reduce verification cost on the specification side, complementing model-side techniques such as abstraction and compositional reasoning. The ICSE 2026 companion paper carries the idea over to Computation Tree Logic (CTL), and a later manuscript develops a complete refinement theory for CTL.
+For researchers working on model checking, requirements engineering or specification quality, the paper offers both a formal semantics for comparing the strength of temporal properties and a practical way to reduce verification cost on the specification side, complementing model-side techniques such as abstraction and compositional reasoning. The ICSE 2026 companion paper carries the idea over to Computation Tree Logic (CTL), and a later paper develops a complete refinement theory for CTL.

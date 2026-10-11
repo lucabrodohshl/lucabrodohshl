@@ -41,14 +41,14 @@ Front-matter fields (copy an existing file as a template):
 | `title`, `authors`, `date` | Exact title, author list, and the date used for sorting and `citation_publication_date` |
 | `date_note` | Optional explanation of what the date means |
 | `venue`, `venue_detail`, `venue_short` | Full venue line on the paper page, and the short subtitle on cards |
-| `venue_type` | `journal`, `conference` or `preprint`; controls `citation_journal_title` / `citation_conference_title` |
+| `venue_type` | `journal`, `conference`, `preprint` or `other`; controls `citation_journal_title` / `citation_conference_title` |
 | `citation_venue`, `publisher`, `volume`, `issue`, `firstpage`, `lastpage` | Scholar metadata (only emitted if present) |
 | `status`, `status_note` | `Published`, `Accepted`, `Preprint`, … shown on the card (when not Published) and on the page |
 | `award`, `award_short` | Shown in **red** next to the venue (e.g. `award: "Best Paper Award"`) |
 | `doi` | Publisher DOI (without `https://doi.org/`) |
 | `zenodo`, `zenodo_doi` | Zenodo record URL and DOI |
 | `pdf`, `pdf_note` | Site path of the local PDF; omit the field if no PDF may be shared |
-| `code`, `code_label` | Replication package or artifact link |
+| `code`, `code_label` | Optional code/artifact link (currently unused) |
 | `license`, `license_label` | License of the shared version |
 | `featured`, `featured_order` | Show under "Selected publications" (home page and top of publications page), in this order |
 | `topics` | 1–3 small labels for the card (use sparingly) |
@@ -73,7 +73,7 @@ Metadata was taken from the supplied PDFs and checked against Crossref (DOIs, pa
 |---|---|---|
 | FSE 2026, Property Refinement in LTL | yes (`FSELTL.pdf`) | DOI 10.1145/3808127 |
 | ICSE 2026 Companion, What Do We Really Need? | yes (`PropRef.pdf`) | DOI 10.1145/3774748.3795661 |
-| Property Refinement in CTL | yes (`CTlRef.pdf`) | Zenodo preprint 10.5281/zenodo.22734610; **no venue listed — add it when known** |
+| Property Refinement in CTL | yes (`CTlRef.pdf`) | Conference paper published on Zenodo, 10.5281/zenodo.22734610; add the conference name to `venue` if it should be shown |
 | MEMOCODE 2026, Asymmetric Timed Refinement (RWTBS) | yes (`RTWBS.pdf`) | Best Paper Award (confirmed by Luca). **Add the proceedings DOI and update the BibTeX when available**; currently cites the Zenodo record 10.5281/zenodo.22746507 |
 | SEAMS 2026, Runtime Self-Optimization | yes (`RTOPT.pdf`) | DOI 10.1145/3788550.3794861 |
 | MODELS 2026 Companion, Social norm pattern catalog | yes (`norms.pdf`) | DOI 10.1145/3837062.3838903 |
@@ -122,4 +122,4 @@ The current policy allows all search engines and all AI search, user-fetch and t
 2. **Bing Webmaster Tools.** Import from Search Console, or verify with `bing_site_verification`, and submit the sitemap. Bing's index also serves DuckDuckGo and is used by ChatGPT search and Copilot.
 3. **Google Scholar profile.** Create or claim a Scholar profile, add the papers, and set the homepage to the site. Scholar has no submission form: it finds pages that follow its inclusion guidelines, usually within a few weeks.
 4. **Link the site from your profiles.** Add the URL to ORCID (*Websites & social links*), your GitHub profile, LinkedIn, the HSHL staff page, Semantic Scholar and DBLP author pages, and the email signature. Links from these established pages are the strongest discovery signal.
-5. **Keep it current.** Update the RWTBS and CTL entries when their DOIs and venues are known.
+5. **Keep it current.** Update the RWTBS entry when its proceedings DOI is known.

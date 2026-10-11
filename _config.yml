@@ -36,7 +36,7 @@ author:
 # verification here (only the token, not the whole <meta> tag).
 google_site_verification: "O1FoJrmQGvEuvPJNwOBJtfq_I6j0JQdXcZAX1SKyaMY"
 # Optional: Bing Webmaster Tools verification token.
-bing_site_verification: ""
+bing_site_verification: "1F179D141D9E96AF24E7128D66E3D658"
 
 collections:
   publications:
