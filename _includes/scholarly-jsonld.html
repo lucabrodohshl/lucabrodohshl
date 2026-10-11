@@ -81,7 +81,7 @@
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Luca Brodo", "item": "{{ site_root }}/" },
+    { "@type": "ListItem", "position": 1, "name": {{ site.title | jsonify }}, "item": "{{ site_root }}/" },
     { "@type": "ListItem", "position": 2, "name": "Publications", "item": "{{ site_root }}/publications/" },
     { "@type": "ListItem", "position": 3, "name": {{ page.title | jsonify }}, "item": "{{ page.url | prepend: site_root }}" }
   ]

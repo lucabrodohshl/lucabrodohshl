@@ -5,13 +5,13 @@
 {%- assign site_root = site.url | append: site.baseurl -%}
 {%- assign canonical = page.url | replace: 'index.html', '' | prepend: site_root -%}
 {%- if page.collection == "publications" -%}
-  {%- assign doc_title = page.title | append: " — " | append: site.author.name -%}
+  {%- assign doc_title = page.title | append: " — " | append: site.title -%}
   {%- assign doc_description = page.description -%}
 {%- elsif page.seo_title -%}
   {%- assign doc_title = page.seo_title -%}
   {%- assign doc_description = page.description | default: site.description -%}
 {%- else -%}
-  {%- assign doc_title = page.title | append: " — " | append: site.author.name -%}
+  {%- assign doc_title = page.title | append: " — " | append: site.title -%}
   {%- assign doc_description = page.description | default: site.description -%}
 {%- endif -%}
 {%- assign doc_description = doc_description | strip_html | strip_newlines | strip -%}
@@ -88,6 +88,7 @@
       "@type": "Person",
       "@id": "{{ site_root }}/#person",
       "name": {{ site.author.name | jsonify }},
+      "alternateName": {{ site.title | jsonify }},
       "givenName": "Luca",
       "familyName": "Brodo",
       "jobTitle": "Researcher",

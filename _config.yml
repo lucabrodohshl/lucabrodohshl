@@ -8,7 +8,7 @@
 # user site (repository `lucabrodohshl.github.io`), set baseurl to "" and
 # update url accordingly.
 
-title: Luca Brodo
+title: Brodo Luca          # display name: browser tab, header, footer, social previews
 description: >-
   Luca Brodo is a researcher in formal methods and software engineering at
   Hamm-Lippstadt University of Applied Sciences, working on property
