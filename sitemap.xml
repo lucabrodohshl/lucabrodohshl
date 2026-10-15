@@ -14,4 +14,5 @@ permalink: /sitemap.xml
   {%- endfor %}
   <url><loc>{{ site_root }}/teaching/</loc></url>
   <url><loc>{{ site_root }}/impressum/</loc></url>
+  <url><loc>{{ site_root }}/privacy/</loc></url>
 </urlset>

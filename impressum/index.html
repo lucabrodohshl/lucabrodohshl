@@ -1,41 +1,61 @@
 ---
-title: Impressum
-seo_title: "Impressum — Brodo Luca"
-description: "Impressum (legal notice) for the academic website of Luca Brodo."
+title: Imprint
+seo_title: "Imprint — Brodo Luca"
+description: "Imprint (Impressum) of the academic website of Luca Brodo: provider information, content responsibility, disclaimer and copyright."
 permalink: /impressum/
-lang: de
 ---
 <header class="row page-head">
   <div class="row__label"></div>
   <div class="row__body">
-    <h1>Impressum</h1>
-    <p class="lede">Angaben gemäß § 5 DDG und § 18 Abs. 1 MStV</p>
+    <h1>Imprint</h1>
+    <p class="lede">Information pursuant to § 5 DDG and § 18 (1) MStV.</p>
   </div>
 </header>
 
-<section class="row" aria-labelledby="anbieter">
-  <h2 class="row__label" id="anbieter">Diensteanbieter</h2>
+<section class="row" aria-labelledby="responsible">
+  <h2 class="row__label" id="responsible">Responsible party</h2>
   <div class="row__body">
     <address>
       Luca Brodo<br>
-      Hochschule Hamm-Lippstadt, Campus Lippstadt<br>
+      Hamm-Lippstadt University of Applied Sciences, Campus Lippstadt<br>
       Dr.-Arnold-Hueck-Straße 3<br>
       59557 Lippstadt<br>
-      Deutschland
+      Germany
     </address>
+    <p class="legal-contact">
+      Email: <a href="mailto:{{ site.author.email }}">{{ site.author.email }}</a><br>
+      Website: <a href="{{ site.url }}{{ site.baseurl }}/">{{ site.url }}{{ site.baseurl }}</a>
+    </p>
   </div>
 </section>
 
-<section class="row" aria-labelledby="kontakt">
-  <h2 class="row__label" id="kontakt">Kontakt</h2>
-  <div class="row__body">
-    <p>E-Mail: <a href="mailto:luca.brodo@hshl.de">luca.brodo@hshl.de</a></p>
-  </div>
-</section>
-
-<section class="row" aria-labelledby="hinweis">
-  <h2 class="row__label" id="hinweis">Hinweis</h2>
+<section class="row" aria-labelledby="content-responsibility">
+  <h2 class="row__label" id="content-responsibility">Content responsibility</h2>
   <div class="row__body prose">
-    <p>Dies ist die private wissenschaftliche Website von Luca Brodo. Die Website verwendet keine Cookies, keine Analyse- oder Tracking-Dienste und bindet keine Inhalte Dritter ein. Sie wird über GitHub Pages bereitgestellt.</p>
+    <p>Luca Brodo is responsible for the content of this website in accordance with the applicable provisions of the German Digital Services Act (Digitale-Dienste-Gesetz, DDG) and other applicable legislation.</p>
+  </div>
+</section>
+
+<section class="row" aria-labelledby="disclaimer">
+  <h2 class="row__label" id="disclaimer">Disclaimer</h2>
+  <div class="row__body prose">
+    <p>This website is intended exclusively for scientific information and academic communication. Although the contents have been prepared with great care, no guarantee is given regarding their accuracy, completeness, or timeliness.</p>
+    <p>Research results, publications, software, datasets, and other scientific material may contain errors, be preliminary in nature, or change over time. Users remain responsible for independently evaluating the suitability of the information for their intended purpose. Mandatory statutory liability remains unaffected.</p>
+    <p>This website contains links to external websites. Responsibility for the content of external websites lies solely with their respective operators. At the time links were added, no unlawful content was apparent. If legal infringements become known, the respective links will be removed without undue delay.</p>
+  </div>
+</section>
+
+<section class="row" aria-labelledby="copyright">
+  <h2 class="row__label" id="copyright">Copyright</h2>
+  <div class="row__body prose">
+    <p>Unless otherwise indicated, the contents of this website are copyright &copy; Luca Brodo.</p>
+    <p>Publications, software, datasets, figures, and other material made available through external publishers or repositories remain subject to the copyright and licence conditions of their respective rights holders.</p>
+  </div>
+</section>
+
+<section class="row" aria-labelledby="privacy-ref">
+  <h2 class="row__label" id="privacy-ref">Privacy</h2>
+  <div class="row__body prose">
+    <p>Information on the processing of personal data is provided in the <a href="{{ '/privacy/' | relative_url }}">Privacy Policy</a>.</p>
   </div>
 </section>

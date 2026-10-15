@@ -147,8 +147,15 @@ p, ul, ol, dl, address { margin: 0; }
   padding-top: 1.5rem;
   padding-bottom: 2.5rem;
 }
-.site-footer a { color: var(--text-2); }
-.site-footer a:hover { color: var(--accent); }
+/* Footer links follow the style of shenkler.github.io: inherited colour,
+   1px underline that thickens on hover. */
+.site-footer a {
+  color: inherit;
+  text-decoration-color: currentColor;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16em;
+}
+.site-footer a:hover { color: inherit; text-decoration-thickness: 2px; }
 
 /* ---------- Rows: label column + text column ---------- */
 
@@ -367,6 +374,7 @@ main:focus { outline: none; }
 /* ---------- Legal ---------- */
 
 address { font-style: normal; }
+.legal-contact { margin-top: 1rem; }
 
 /* ---------- Print ---------- */
 

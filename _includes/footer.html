@@ -1,11 +1,14 @@
 <footer class="site-footer">
   <div class="container site-footer__inner">
-    <p>&copy; {{ site.time | date: "%Y" }} {{ site.author.name }} <span class="sep" aria-hidden="true">·</span> {{ site.author.affiliation }}</p>
-    <ul class="inline-list" aria-label="Contact and legal">
+    <p class="site-footer__legal">
+      &copy; {{ site.time | date: "%Y" }} {{ site.author.name }}
+      &middot; <a href="{{ '/impressum/' | relative_url }}"{% if page.url == "/impressum/" %} aria-current="page"{% endif %}>Imprint</a>
+      &middot; <a href="{{ '/privacy/' | relative_url }}"{% if page.url == "/privacy/" %} aria-current="page"{% endif %}>Privacy</a>
+    </p>
+    <ul class="inline-list" aria-label="Contact">
       <li><a href="mailto:{{ site.author.email }}">Email</a></li>
       <li><a href="{{ site.author.github }}" rel="me">GitHub</a></li>
       <li><a href="{{ site.author.orcid }}" rel="me">ORCID</a></li>
-      <li><a href="{{ '/impressum/' | relative_url }}" lang="de">Impressum</a></li>
     </ul>
   </div>
 </footer>
