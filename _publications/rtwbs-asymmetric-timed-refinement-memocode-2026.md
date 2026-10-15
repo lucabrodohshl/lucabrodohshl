@@ -22,6 +22,7 @@ license: https://creativecommons.org/licenses/by/4.0/
 license_label: "CC BY 4.0"
 featured: true   # shown under "Selected publications"
 featured_order: 1  # position in the selected list
+research_area: timed-refinement   # id from _data/research.yml (Research page grouping)
 topics: [Real-time systems, Timed refinement]
 keywords:
   - Relaxed Weak Timed Bisimulation (RWTBS)

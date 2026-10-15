@@ -1,0 +1,36 @@
+---
+title: Research
+seo_title: "Research — Brodo Luca"
+description: "Research of Luca Brodo: property refinement for LTL and CTL, Relaxed Weak Timed Bisimulation (RWTBS) for real-time systems, runtime self-optimization and social norm verification."
+permalink: /research/
+---
+<header class="row page-head">
+  <div class="row__label"></div>
+  <div class="row__body">
+    <h1>Research</h1>
+    <p class="lede">My work is in formal methods and software engineering. It concentrates on three directions, each listed below with the papers that belong to it.</p>
+  </div>
+</header>
+
+{%- for area in site.data.research %}
+<section class="row" id="{{ area.id }}" aria-labelledby="{{ area.id }}-title">
+  <p class="row__label row__label--num" aria-hidden="true">{{ forloop.index }}</p>
+  <div class="row__body">
+    <h2 class="area__title" id="{{ area.id }}-title">{{ area.title }}</h2>
+    <div class="prose">
+      {%- for para in area.body %}
+      <p>{{ para }}</p>
+      {%- endfor %}
+    </div>
+    {%- assign area_pubs = site.publications | where: "research_area", area.id | sort: "date" | reverse %}
+    {%- if area_pubs.size > 0 %}
+    <h3 class="subhead">Publications</h3>
+    <ol class="pub-list">
+      {%- for p in area_pubs %}
+      {% include pub-entry.html paper=p compact=true %}
+      {%- endfor %}
+    </ol>
+    {%- endif %}
+  </div>
+</section>
+{%- endfor %}

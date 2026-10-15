@@ -22,6 +22,7 @@ pdf_note: "Authors' version (CC BY 4.0)"
 license: https://creativecommons.org/licenses/by/4.0/
 license_label: "CC BY 4.0"
 featured: false
+research_area: autonomous-systems   # id from _data/research.yml (Research page grouping)
 topics: [Social norms, Formal verification]
 keywords:
   - social norms

@@ -2,8 +2,24 @@
 
 Static Jekyll site deployed to GitHub Pages with GitHub Actions.
 
-- Project-site URL: **https://lucabrodohshl.github.io/lucabrodohshl/**
-- `url` and `baseurl` are set in [`_config.yml`](_config.yml) and drive canonical links, Open Graph, `citation_pdf_url`, JSON-LD and the sitemap.
+- Site URL: **https://lucabrodohshl.github.io/** (GitHub Pages *user site*, repository `lucabrodohshl/lucabrodohshl.github.io`)
+- `url` and `baseurl` (empty) are set in [`_config.yml`](_config.yml) and drive canonical links, Open Graph, `citation_pdf_url`, JSON-LD and the sitemap.
+
+## Structure
+
+| Path | Content |
+|---|---|
+| `index.html` | Home: introduction, research overview, selected publications, contact |
+| `research/index.html` | Research page, generated from [`_data/research.yml`](_data/research.yml) |
+| `publications/index.html` | Publication list (selected, then by year) |
+| `_publications/*.md` | One file per paper (see below) |
+| `teaching/index.html` | Teaching page, generated from [`_teaching/`](_teaching/) |
+| `impressum/index.html` | Legal notice |
+| `_data/navigation.yml` | Main navigation (Home, Research, Publications, Teaching) |
+| `_includes/pub-entry.html` | One bibliography entry, used on every list |
+| `_plugins/legacy_redirects.rb` | Redirects from the old `/lucabrodohshl/...` URLs |
+| `assets/css/main.css` | The only stylesheet |
+| `assets/js/copy-citation.js` | The only script (BibTeX copy button; pages work without it) |
 
 ## Run and build locally
 
@@ -12,21 +28,34 @@ Requires Ruby ≥ 3.1 (macOS: `brew install ruby`, then put `/opt/homebrew/opt/r
 ```bash
 bundle config set --local path vendor/bundle
 bundle install
-bundle exec jekyll serve            # http://localhost:4000/lucabrodohshl/
+bundle exec jekyll serve            # http://localhost:4000/
 JEKYLL_ENV=production bundle exec jekyll build
 python3 scripts/check_site.py       # links, sitemap, metadata, JSON-LD checks
 ```
 
-## Deployment (one-time setup)
+## Deployment
 
-1. On GitHub, open **Settings → Pages** for `lucabrodohshl/lucabrodohshl` and set **Source** to **GitHub Actions**.
-2. Every push to `main` runs [`.github/workflows/pages.yml`](.github/workflows/pages.yml). It builds the site, runs `scripts/check_site.py` and deploys.
+Every push to `main` runs [`.github/workflows/pages.yml`](.github/workflows/pages.yml). It builds the site with the Pages base path, runs `scripts/check_site.py` and deploys. **Settings → Pages → Source** must be **GitHub Actions**.
+
+### Moving to the root URL (one-time)
+
+The site used to be a *project site* at `https://lucabrodohshl.github.io/lucabrodohshl/`. GitHub serves a site at the domain root only from a repository named exactly `<username>.github.io`, so changing `baseurl` alone is not enough:
+
+1. On GitHub, open the repository → **Settings → General**. Under **Repository name**, enter `lucabrodohshl.github.io` and click **Rename**.
+2. Open **Settings → Pages** and check that **Source** is still **GitHub Actions**.
+3. Open **Actions → Build and deploy site to GitHub Pages → Run workflow** (or push any commit). The site is then published at `https://lucabrodohshl.github.io/`.
+4. Point your local clone at the new name (GitHub also redirects the old one):
+   `git remote set-url origin https://github.com/lucabrodohshl/lucabrodohshl.github.io.git`
+
+Note: a repository named exactly `lucabrodohshl` is GitHub's special *profile README* repository. After the rename your profile no longer shows a README from it; create a new `lucabrodohshl` repository with a `README.md` if you want one.
+
+**Old URLs.** After the rename, GitHub no longer serves `/lucabrodohshl/...` on its own. [`_plugins/legacy_redirects.rb`](_plugins/legacy_redirects.rb) therefore generates `/lucabrodohshl/<path>/` for every page and paper. Each one has an immediate redirect and a canonical link to the new URL, and is marked `noindex`; search engines treat these as permanent redirects. The old PDF URLs (`/lucabrodohshl/publications/<slug>/<file>.pdf`) are not redirected, because a static host cannot redirect a PDF; the paper pages that link to them are. A copy of the Google verification file is kept at `/lucabrodohshl/google48875e0f9175e1b8.html`, so the old Search Console property stays verified.
 
 ## Adding or editing a publication
 
 Each paper is one Markdown file in [`_publications/`](_publications/). The file name is the slug and the URL (`/publications/<slug>/`). Adding a file creates all of the following:
 
-- its card on the publications page, and on the home page if `featured`
+- its entry on the publications page, on the Research page (by `research_area`), and on the home page if `featured`
 - its own paper page
 - `<title>`, meta description, canonical link and Open Graph tags
 - Google Scholar `citation_*` tags and `ScholarlyArticle` / `BreadcrumbList` JSON-LD
@@ -40,21 +69,22 @@ Front-matter fields (copy an existing file as a template):
 |---|---|
 | `title`, `authors`, `date` | Exact title, author list, and the date used for sorting and `citation_publication_date` |
 | `date_note` | Optional explanation of what the date means |
-| `venue`, `venue_detail`, `venue_short` | Full venue line on the paper page, and the short subtitle on cards |
+| `venue`, `venue_detail`, `venue_short` | Full venue line on the paper page, and the short venue in publication lists |
 | `venue_type` | `journal`, `conference`, `preprint` or `other`; controls `citation_journal_title` / `citation_conference_title` |
 | `citation_venue`, `publisher`, `volume`, `issue`, `firstpage`, `lastpage` | Scholar metadata (only emitted if present) |
-| `status`, `status_note` | `Published`, `Accepted`, `Preprint`, … shown on the card (when not Published) and on the page |
-| `award`, `award_short` | Shown in **red** next to the venue (e.g. `award: "Best Paper Award"`) |
+| `status`, `status_note` | `Published`, `Accepted`, `Preprint`, … shown in lists (when not Published) and on the page |
+| `award` | Shown in dark red next to the venue (e.g. `award: "Best Paper Award"`) |
 | `doi` | Publisher DOI (without `https://doi.org/`) |
 | `zenodo`, `zenodo_doi` | Zenodo record URL and DOI |
 | `pdf`, `pdf_note` | Site path of the local PDF; omit the field if no PDF may be shared |
 | `code`, `code_label` | Optional code/artifact link (currently unused) |
 | `license`, `license_label` | License of the shared version |
 | `featured`, `featured_order` | Show under "Selected publications" (home page and top of publications page), in this order |
-| `topics` | 1–3 small labels for the card (use sparingly) |
+| `research_area` | `id` of a research direction in `_data/research.yml`; the paper is listed under it on the Research page |
+| `topics` | Short labels (kept as data; not displayed) |
 | `keywords` | Paper keywords (page, `citation_keywords`, JSON-LD) |
 | `description` | Meta description, roughly 50–160 characters, specific to the paper |
-| `summary_short` | One- or two-sentence card text |
+| `summary_short` | One- or two-sentence description in publication lists |
 | `abstract` | Complete author-written abstract |
 | `bibtex` | Citation shown in the copy box |
 | `cite_note` | Optional note above the BibTeX |
@@ -64,6 +94,25 @@ Front-matter fields (copy an existing file as a template):
 **PDFs.** Put the PDF in `publications/<slug>/`, next to the paper page, and set `pdf: /publications/<slug>/<file>.pdf`. Google Scholar expects the PDF in the same directory as the HTML abstract page. The supplied originals stay unchanged in `assets/paper/`; that folder is excluded from the build so each PDF has a single public URL.
 
 **Selected publications** are currently RTWBS (MEMOCODE 2026, Best Paper Award), the FSE 2026 LTL paper and the SEAMS 2026 paper.
+
+## Research page
+
+[`_data/research.yml`](_data/research.yml) holds the three research directions. `summary` appears on the home page, and `body` (one or more paragraphs) on the Research page, followed by every paper whose `research_area` matches the direction's `id`.
+
+## Teaching page
+
+Each item is one Markdown file in [`_teaching/`](_teaching/). Items are grouped by `course` and listed newest first. The file has only front matter:
+
+| Field | Purpose |
+|---|---|
+| `course` | Group heading (course name, or e.g. `Templates`) |
+| `title`, `type`, `description` | Entry title, kind of material (`Lecture slides`, `Exercise sheet`, `Templates`, …) and a short description |
+| `file`, `format`, `size` | For a downloadable file: its site path (put files in `assets/teaching/`), format (`PDF`) and optional size. The page shows "<download_label> (<format>)" and "Open in browser" |
+| `download_label` | Link text before the format, e.g. `Download slides` |
+| `link`, `link_label` | For an external resource instead of a file: its URL and link text |
+| `released` | Optional date (`YYYY-MM-DD`), shown as month and year |
+
+Currently listed: the Team Henkler LaTeX and PowerPoint templates (GitHub repository).
 
 ## Content sources and open items
 
@@ -107,19 +156,16 @@ What the site already does:
 
 Indexing, ranking and appearance in AI answers are not guaranteed.
 
-**robots.txt and the project-site path.** Crawlers only read `https://lucabrodohshl.github.io/robots.txt`, at the host root. This repository publishes its file at `/lucabrodohshl/robots.txt`, which is informational only. Today the root returns 404, which crawlers treat as "everything allowed", so nothing is blocked. For full control, use one of these:
-
-- Rename this repository to `lucabrodohshl.github.io`, then set `baseurl: ""` in `_config.yml`.
-- Add a custom domain, then update `url` and set `baseurl: ""`.
+**robots.txt.** Crawlers read `https://lucabrodohshl.github.io/robots.txt` at the host root, so once the repository is the user site, [`robots.txt`](robots.txt) is in effect. The redirect pages under `/lucabrodohshl/` are deliberately not blocked.
 
 The current policy allows all search engines and all AI search, user-fetch and training crawlers, including OpenAI's `OAI-SearchBot` (search), `GPTBot` (training) and `ChatGPT-User`. This is deliberate, for broad discoverability. To opt out of AI training only, add `Disallow: /` groups for `GPTBot`, `ClaudeBot`, `Google-Extended`, `Applebot-Extended` and `CCBot`.
 
 `llms.txt` is a small optional index. The HTML pages and the sitemap are what matter.
 
-### Next steps after the first deployment
+### Next steps after the move to the root URL
 
-1. **Google Search Console.** Add a *URL-prefix* property for `https://lucabrodohshl.github.io/lucabrodohshl/`. Verify it with the HTML tag method by pasting the token into `google_site_verification` in `_config.yml` and pushing. Then submit `sitemap.xml` and use *URL Inspection → Request indexing* for the home page and each paper page.
-2. **Bing Webmaster Tools.** Import from Search Console, or verify with `bing_site_verification`, and submit the sitemap. Bing's index also serves DuckDuckGo and is used by ChatGPT search and Copilot.
+1. **Google Search Console.** Add a new *URL-prefix* property for `https://lucabrodohshl.github.io/`. It verifies with the meta tag (`google_site_verification` in `_config.yml`) or the file `google48875e0f9175e1b8.html` at the root; both are already deployed. Submit `sitemap.xml` and request indexing for the home, research, publications and teaching pages. Keep the old `/lucabrodohshl/` property to watch the redirects being processed.
+2. **Bing Webmaster Tools.** Add `https://lucabrodohshl.github.io/` (meta tag `bing_site_verification`, or `BingSiteAuth.xml` at the root, which now works) and submit the sitemap. Bing's index also serves DuckDuckGo, Ecosia, Qwant and Yahoo, and is used by ChatGPT search and Copilot.
 3. **Google Scholar profile.** Create or claim a Scholar profile, add the papers, and set the homepage to the site. Scholar has no submission form: it finds pages that follow its inclusion guidelines, usually within a few weeks.
 4. **Link the site from your profiles.** Add the URL to ORCID (*Websites & social links*), your GitHub profile, LinkedIn, the HSHL staff page, Semantic Scholar and DBLP author pages, and the email signature. Links from these established pages are the strongest discovery signal.
 5. **Keep it current.** Update the RWTBS entry when its proceedings DOI is known.

@@ -1,21 +1,22 @@
 # Site configuration — Luca Brodo, academic website (Jekyll)
 #
-# Deployment: GitHub Pages project site for the repository
-# lucabrodohshl/lucabrodohshl, served at
-#   https://lucabrodohshl.github.io/lucabrodohshl/
-# `url` + `baseurl` are used for canonical links, Open Graph, citation_pdf_url,
-# JSON-LD and the sitemap. If you move the site to a custom domain or to a
-# user site (repository `lucabrodohshl.github.io`), set baseurl to "" and
-# update url accordingly.
+# Deployment: GitHub Pages *user site* from the repository
+# lucabrodohshl/lucabrodohshl.github.io, served at the domain root:
+#   https://lucabrodohshl.github.io/
+# `url` + `baseurl` drive canonical links, Open Graph, citation_pdf_url,
+# JSON-LD and the sitemap. The GitHub Actions workflow passes the Pages base
+# path to Jekyll, so links stay correct even before the repository rename.
+# Old project-site URLs (/lucabrodohshl/...) are redirected by
+# _plugins/legacy_redirects.rb — see INSTRUCTIONS.md.
 
-title: Brodo Luca          # display name: browser tab, header, footer, social previews
+title: Brodo Luca          # shown in browser-tab titles and social previews
 description: >-
   Luca Brodo is a researcher in formal methods and software engineering at
   Hamm-Lippstadt University of Applied Sciences, working on property
   refinement in temporal logic, timed refinement for real-time systems, and
   verifiable self-adaptive cyber-physical systems.
 url: "https://lucabrodohshl.github.io"
-baseurl: "/lucabrodohshl"
+baseurl: ""
 lang: en
 
 author:
@@ -42,6 +43,9 @@ collections:
   publications:
     output: true
     permalink: /publications/:name/
+  # Teaching materials: one Markdown file per item, listed on /teaching/.
+  teaching:
+    output: false
 
 defaults:
   - scope:
@@ -61,6 +65,7 @@ kramdown:
     disable: true
 
 exclude:
+  - INSTRUCTIONS.md
   - README.md
   - Gemfile
   - Gemfile.lock

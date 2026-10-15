@@ -17,6 +17,7 @@ status: Published
 status_note: "Version of record available from ACM via the DOI. No local PDF is provided on this site yet."
 doi: "10.1145/3735948.3736156"
 featured: false
+research_area: autonomous-systems   # id from _data/research.yml (Research page grouping)
 topics: [Digital twins, Cyber-physical systems]
 keywords:
   - digital twins

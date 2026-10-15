@@ -1,0 +1,76 @@
+---
+title: Teaching
+seo_title: "Teaching — Brodo Luca"
+description: "Teaching materials and resources by Luca Brodo for students at Hamm-Lippstadt University of Applied Sciences, including LaTeX and PowerPoint templates for theses and presentations."
+permalink: /teaching/
+---
+{%- assign site_root = site.url | append: site.baseurl -%}
+<header class="row page-head">
+  <div class="row__label"></div>
+  <div class="row__body">
+    <h1>Teaching</h1>
+    <p class="lede">Materials and resources for students. Everything here is freely accessible, without signing in.</p>
+  </div>
+</header>
+
+{%- assign items = site.teaching | sort: "released", "first" | reverse %}
+{%- assign by_course = items | group_by: "course" %}
+{%- for course in by_course %}
+<section class="row" aria-labelledby="course-{{ forloop.index }}">
+  <h2 class="row__label" id="course-{{ forloop.index }}">{{ course.name }}</h2>
+  <div class="row__body">
+    <ol class="material-list">
+      {%- for m in course.items %}
+      <li class="material">
+        <h3 class="material__title">{{ m.title }}</h3>
+        <p class="material__meta">
+          {{ m.type }}{% if m.format %}<span class="sep" aria-hidden="true">·</span>{{ m.format }}{% if m.size %}, {{ m.size }}{% endif %}{% endif %}
+          {%- if m.released %}<span class="sep" aria-hidden="true">·</span><time datetime="{{ m.released | date: '%Y-%m-%d' }}">{{ m.released | date: "%B %Y" }}</time>{% endif %}
+        </p>
+        <p class="material__desc">{{ m.description }}</p>
+        <ul class="inline-list">
+          {%- if m.file %}
+          <li><a href="{{ m.file | relative_url }}" download>{{ m.download_label | default: "Download" }} ({{ m.format }})</a></li>
+          <li><a href="{{ m.file | relative_url }}"{% if m.format == "PDF" %} type="application/pdf"{% endif %}>Open in browser<span class="visually-hidden">: {{ m.title }}</span></a></li>
+          {%- elsif m.link %}
+          <li><a href="{{ m.link }}">{{ m.link_label | default: "Open" }}</a></li>
+          {%- endif %}
+        </ul>
+      </li>
+      {%- endfor %}
+    </ol>
+  </div>
+</section>
+{%- endfor %}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Teaching materials by {{ site.author.name }}",
+  "itemListElement": [
+    {%- for m in items %}
+    {
+      "@type": "ListItem",
+      "position": {{ forloop.index }},
+      "item": {
+        "@type": "LearningResource",
+        "name": {{ m.title | jsonify }},
+        "description": {{ m.description | strip | jsonify }},
+        "learningResourceType": {{ m.type | jsonify }},
+        {%- if m.file %}
+        "encodingFormat": {% if m.format == "PDF" %}"application/pdf"{% else %}{{ m.format | jsonify }}{% endif %},
+        "url": "{{ m.file | prepend: site_root }}",
+        {%- else %}
+        "url": {{ m.link | jsonify }},
+        {%- endif %}
+        "provider": { "@type": "Person", "name": {{ site.author.name | jsonify }} }
+        {%- if m.released %},
+        "dateCreated": "{{ m.released | date: '%Y-%m-%d' }}"
+        {%- endif %}
+      }
+    }{% unless forloop.last %},{% endunless %}
+    {%- endfor %}
+  ]
+}
+</script>

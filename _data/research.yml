@@ -1,0 +1,65 @@
+# Research directions, shown on the home page (`summary`) and on the
+# Research page (`body`, followed by the publications whose `research_area`
+# matches `id`). Order here is the order on the site.
+
+- id: property-refinement
+  title: Property refinement and specification debt
+  summary: >-
+    Temporal-logic specifications accumulate redundant properties over design
+    iterations. I develop property refinement for LTL and CTL to identify
+    properties that are already implied by others and to reduce verification
+    to a minimal sufficient set.
+  body:
+    - >-
+      Formal specifications grow with every design iteration, and many temporal
+      properties end up implied by others. I develop <em>property refinement</em>
+      for Linear Temporal Logic (LTL) and Computation Tree Logic (CTL): a
+      semantic relation that identifies redundant or subsumed properties and
+      computes a minimal sufficient set to model-check, reducing verification
+      effort and exposing dependencies between requirements.
+    - >-
+      Refinement is defined by trace inclusion with a non-emptiness condition,
+      so that unsatisfiable properties cannot trivially replace weaker ones. The
+      analysis works on the properties alone, before a system model exists, and
+      fits between requirements formalisation and model checking in the
+      verification workflow.
+
+- id: timed-refinement
+  title: Timed refinement for evolving real-time systems
+  summary: >-
+    Updates to deployed real-time systems must preserve what was verified
+    before. Relaxed Weak Timed Bisimulation (RWTBS) checks such updates
+    compositionally, preserving output timing strictly while relaxing input
+    timing in a controlled way.
+  body:
+    - >-
+      Post-deployment updates to real-time and safety-critical systems must
+      preserve what was verified before. With <em>Relaxed Weak Timed
+      Bisimulation</em> (RWTBS), updates are checked compositionally: output
+      deadlines are preserved strictly while input reception may be relaxed in
+      a controlled way. Building on this, I study correct-by-construction
+      evolution of digital twins.
+    - >-
+      Classical timed refinement relations require identical timing for every
+      observable event and therefore reject updates such as buffering or
+      asynchronous communication that keep all output deadlines. RWTBS captures
+      this asymmetry between output obligations and input flexibility and is
+      decided by a zone-based symbolic algorithm over timed automata.
+
+- id: autonomous-systems
+  title: Self-adaptive and socially compliant autonomous systems
+  summary: >-
+    Autonomous systems must adapt at runtime and behave acceptably around
+    people. I study runtime self-optimization with exact optimality guarantees
+    and the verification of social norms alongside safety and liveness.
+  body:
+    - >-
+      Autonomous systems must adapt at runtime and behave acceptably around
+      people. I work on runtime self-optimization that keeps exact optimality
+      through knowledge-driven design space reduction, and on verifying social
+      norms alongside safety and liveness with reusable (T)CTL observer
+      patterns.
+    - >-
+      Application scenarios include smart-farming drones and autonomous
+      transport, where operating conditions change after deployment and
+      systems share space with workers, residents and traffic.

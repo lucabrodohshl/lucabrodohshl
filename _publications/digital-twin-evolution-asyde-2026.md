@@ -19,6 +19,7 @@ doi: "10.1145/3843777.3844533"
 license: https://creativecommons.org/licenses/by/4.0/
 license_label: "CC BY 4.0"
 featured: false
+research_area: timed-refinement   # id from _data/research.yml (Research page grouping)
 topics: [Digital twins, Real-time systems]
 keywords:
   - digital twins

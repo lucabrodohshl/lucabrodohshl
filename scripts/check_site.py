@@ -13,8 +13,21 @@ from pathlib import Path
 from urllib.parse import urlparse, unquote
 
 ROOT = Path(__file__).resolve().parent.parent / "_site"
-SITE_URL = "https://lucabrodohshl.github.io"
-BASEURL = "/lucabrodohshl"
+CONFIG = (ROOT.parent / "_config.yml").read_text(encoding="utf-8")
+
+
+def config_value(key):
+    m = re.search(r'^%s:\s*"?([^"\n#]*)"?' % key, CONFIG, re.M)
+    return m.group(1).strip() if m else ""
+
+
+SITE_URL = config_value("url").rstrip("/")
+# The build may override baseurl (the Pages workflow passes the base path);
+# pass the same value here with --baseurl.
+BASEURL = config_value("baseurl").rstrip("/")
+if "--baseurl" in sys.argv:
+    BASEURL = sys.argv[sys.argv.index("--baseurl") + 1].rstrip("/")
+LEGACY_PREFIX = "/lucabrodohshl"
 
 errors = []
 
@@ -72,7 +85,7 @@ def resolve(href, page_path):
     elif href.startswith("#") or href == "":
         return None
     elif href.startswith("/"):
-        if not u.path.startswith(BASEURL + "/") and u.path != BASEURL:
+        if BASEURL and not u.path.startswith(BASEURL + "/") and u.path != BASEURL:
             errors.append(f"{page_path}: link without baseurl: {href}")
             return None
         path = u.path[len(BASEURL):]
@@ -112,6 +125,26 @@ for loc in locs:
     if t is None or not t.exists():
         errors.append(f"sitemap: URL has no page: {loc}")
 
+# Legacy redirect stubs: every indexable page must have one under /lucabrodohshl/
+legacy_root = ROOT / LEGACY_PREFIX.strip("/")
+for f, p in pages.items():
+    if legacy_root in f.parents or any("noindex" in c for c in meta(p, "robots")):
+        continue
+    stub = legacy_root / f.relative_to(ROOT)
+    if not stub.exists():
+        errors.append(f"{f.relative_to(ROOT)}: no legacy redirect at {stub.relative_to(ROOT)}")
+for stub in legacy_root.rglob("index.html") if legacy_root.exists() else []:
+    html = stub.read_text(encoding="utf-8")
+    m = re.search(r'http-equiv="refresh" content="0; url=([^"]+)"', html)
+    t = resolve(m.group(1), stub) if m else None
+    if t is None or not t.exists():
+        errors.append(f"{stub.relative_to(ROOT)}: redirect target missing")
+
+# Teaching downloads
+teaching = ROOT / "teaching" / "index.html"
+if not teaching.exists():
+    errors.append("teaching/index.html missing")
+
 # Per-paper checks
 papers = [f for f in pages if f.parent.parent == ROOT / "publications" and f.name == "index.html"]
 for f in papers:
@@ -146,7 +179,7 @@ for f in papers:
 # Uniqueness of titles and descriptions across indexable pages
 seen_t, seen_d = {}, {}
 for f, p in pages.items():
-    if any("noindex" in c for c in meta(p, "robots")):
+    if any("noindex" in c for c in meta(p, "robots")) or f.name.startswith("google"):
         continue
     for key, store, val in (("title", seen_t, p.title), ("description", seen_d, (meta(p, "description") or [""])[0])):
         if val in store:

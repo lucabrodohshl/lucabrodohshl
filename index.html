@@ -3,52 +3,60 @@ title: Home
 seo_title: "Brodo Luca"
 description: "Luca Brodo researches formal methods and software engineering at Hamm-Lippstadt University of Applied Sciences: property refinement in LTL/CTL, timed refinement (RWTBS) and self-optimizing systems."
 ---
-<section class="intro" aria-labelledby="intro-title">
-  <picture class="intro__photo">
-    <source type="image/webp" srcset="{{ '/assets/img/luca-brodo-240.webp' | relative_url }} 240w, {{ '/assets/img/luca-brodo-480.webp' | relative_url }} 480w" sizes="(min-width: 720px) 200px, 128px">
-    <img src="{{ '/assets/img/luca-brodo-480.jpg' | relative_url }}" srcset="{{ '/assets/img/luca-brodo-240.jpg' | relative_url }} 240w, {{ '/assets/img/luca-brodo-480.jpg' | relative_url }} 480w" sizes="(min-width: 720px) 200px, 128px" width="480" height="480" alt="Portrait of Luca Brodo, smiling, in a dark blazer and white shirt in front of a glass building">
-  </picture>
-  <div class="intro__text">
-    <h1 id="intro-title">Luca Brodo</h1>
-    <p class="intro__role">Formal methods &amp; software engineering<br><a href="{{ site.author.affiliation_url }}">{{ site.author.affiliation }}</a>, Lippstadt, Germany</p>
-    <p>I work on making formal verification of software-intensive and cyber-physical systems cheaper to apply and easier to keep correct as systems evolve. My research covers <strong>property refinement</strong> for temporal-logic specifications, <strong>timed refinement</strong> for safe post-deployment updates of real-time systems, and <strong>verifiable self-adaptation</strong> for autonomous systems. I am supervised by <a href="{{ site.author.supervisor.url }}">Stefan Henkler</a>.</p>
-    <ul class="profile-links" aria-label="Profiles and contact">
-      <li><a href="{{ '/publications/' | relative_url }}">Publications</a></li>
-      <li><a href="mailto:{{ site.author.email }}">{{ site.author.email }}</a></li>
+<section class="row intro" aria-labelledby="intro-title">
+  <div class="row__label">
+    <picture class="portrait">
+      <source type="image/webp" srcset="{{ '/assets/img/luca-brodo-240.webp' | relative_url }} 240w, {{ '/assets/img/luca-brodo-480.webp' | relative_url }} 480w" sizes="(min-width: 860px) 176px, 112px">
+      <img src="{{ '/assets/img/luca-brodo-480.jpg' | relative_url }}" srcset="{{ '/assets/img/luca-brodo-240.jpg' | relative_url }} 240w, {{ '/assets/img/luca-brodo-480.jpg' | relative_url }} 480w" sizes="(min-width: 860px) 176px, 112px" width="480" height="480" alt="Portrait of Luca Brodo">
+    </picture>
+  </div>
+  <div class="row__body">
+    <h1 id="intro-title" class="intro__name">Luca Brodo</h1>
+    <p class="intro__role">Formal Methods &amp; Software Engineering<br><a href="{{ site.author.affiliation_url }}">{{ site.author.affiliation }}</a></p>
+    <div class="prose">
+      <p>I work on making formal verification of software-intensive and cyber-physical systems cheaper to apply and easier to keep correct as systems evolve. My research covers property refinement for temporal-logic specifications, timed refinement for safe post-deployment updates of real-time systems, and verifiable self-adaptation for autonomous systems. I am supervised by <a href="{{ site.author.supervisor.url }}">Stefan Henkler</a>.</p>
+    </div>
+  </div>
+</section>
+
+<section class="row" aria-labelledby="research-title">
+  <h2 class="row__label" id="research-title">Research</h2>
+  <div class="row__body">
+    {%- for area in site.data.research %}
+    <div class="topic">
+      <h3 class="topic__title"><a href="{{ '/research/' | relative_url }}#{{ area.id }}">{{ area.title }}</a></h3>
+      <p>{{ area.summary }}</p>
+    </div>
+    {%- endfor %}
+    <p class="more"><a href="{{ '/research/' | relative_url }}">More on my research</a></p>
+  </div>
+</section>
+
+<section class="row" aria-labelledby="selected-title">
+  <h2 class="row__label" id="selected-title">Selected publications</h2>
+  <div class="row__body">
+    {%- assign featured = site.publications | where: "featured", true | sort: "featured_order" %}
+    <ol class="pub-list">
+      {%- for p in featured %}
+      {% include pub-entry.html paper=p %}
+      {%- endfor %}
+    </ol>
+    <p class="more"><a href="{{ '/publications/' | relative_url }}">All publications</a></p>
+  </div>
+</section>
+
+<section class="row" aria-labelledby="contact-title">
+  <h2 class="row__label" id="contact-title">Contact</h2>
+  <div class="row__body">
+    <p class="contact">
+      <a href="mailto:{{ site.author.email }}">{{ site.author.email }}</a><br>
+      {{ site.author.affiliation }}, Campus Lippstadt<br>
+      Dr.-Arnold-Hueck-Straße 3, 59557 Lippstadt, Germany
+    </p>
+    <ul class="inline-list" aria-label="Academic profiles">
       <li><a href="{{ site.author.orcid }}" rel="me">ORCID</a></li>
       <li><a href="{{ site.author.github }}" rel="me">GitHub</a></li>
       <li><a href="{{ site.author.linkedin }}" rel="me">LinkedIn</a></li>
     </ul>
-  </div>
-</section>
-
-<section class="section" id="research" aria-labelledby="research-title">
-  <h2 id="research-title" class="section__title">Research</h2>
-  <div class="themes">
-    <div class="theme">
-      <h3>Property refinement and specification debt</h3>
-      <p>Formal specifications grow with every design iteration, and many temporal properties end up implied by others. I develop <em>property refinement</em> for Linear Temporal Logic (LTL) and Computation Tree Logic (CTL): a semantic relation that identifies redundant or subsumed properties and computes a minimal sufficient set to model-check, reducing verification effort and exposing dependencies between requirements.</p>
-    </div>
-    <div class="theme">
-      <h3>Timed refinement for evolving real-time systems</h3>
-      <p>Post-deployment updates to real-time and safety-critical systems must preserve what was verified before. With <em>Relaxed Weak Timed Bisimulation</em> (RWTBS), updates are checked compositionally: output deadlines are preserved strictly while input reception may be relaxed in a controlled way. Building on this, I study correct-by-construction evolution of digital twins.</p>
-    </div>
-    <div class="theme">
-      <h3>Self-adaptive and socially compliant autonomous systems</h3>
-      <p>Autonomous systems must adapt at runtime and behave acceptably around people. I work on runtime self-optimization that keeps exact optimality through knowledge-driven design space reduction, and on verifying social norms alongside safety and liveness with reusable (T)CTL observer patterns.</p>
-    </div>
-  </div>
-</section>
-
-<section class="section" aria-labelledby="selected-title">
-  <div class="section__head">
-    <h2 id="selected-title" class="section__title">Selected publications</h2>
-    <a class="section__more" href="{{ '/publications/' | relative_url }}">All publications <span aria-hidden="true">→</span></a>
-  </div>
-  {%- assign featured = site.publications | where: "featured", true | sort: "featured_order" %}
-  <div class="paper-list">
-    {%- for p in featured %}
-    {% include paper-card.html paper=p heading="h3" %}
-    {%- endfor %}
   </div>
 </section>

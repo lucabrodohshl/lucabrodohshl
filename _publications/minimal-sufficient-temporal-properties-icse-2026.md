@@ -21,6 +21,7 @@ pdf_note: "Authors' version (CC BY 4.0)"
 license: https://creativecommons.org/licenses/by/4.0/
 license_label: "CC BY 4.0"
 featured: false
+research_area: property-refinement   # id from _data/research.yml (Research page grouping)
 topics: [Property refinement, CTL]
 keywords:
   - property refinement

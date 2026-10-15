@@ -22,6 +22,7 @@ license: https://creativecommons.org/licenses/by/4.0/
 license_label: "CC BY 4.0"
 featured: true   # shown under "Selected publications"
 featured_order: 3  # position in the selected list
+research_area: autonomous-systems   # id from _data/research.yml (Research page grouping)
 topics: [Self-adaptive systems, Optimization]
 keywords:
   - runtime self-optimization
