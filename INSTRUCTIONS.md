@@ -122,7 +122,7 @@ Metadata was taken from the supplied PDFs and checked against Crossref (DOIs, pa
 |---|---|---|
 | FSE 2026, Property Refinement in LTL | yes (`FSELTL.pdf`) | DOI 10.1145/3808127 |
 | ICSE 2026 Companion, What Do We Really Need? | yes (`PropRef.pdf`) | DOI 10.1145/3774748.3795661 |
-| Property Refinement in CTL | yes (`CTlRef.pdf`) | Conference paper published on Zenodo, 10.5281/zenodo.22734610; add the conference name to `venue` if it should be shown |
+| CAIESA 2026, Property Refinement in CTL | yes (`CTlRef.pdf`) | IFIP AICT (Springer), Barcelona; cited with the Zenodo DOI 10.5281/zenodo.22734609 (as given by Luca). Add the Springer DOI and page numbers when available |
 | MEMOCODE 2026, Asymmetric Timed Refinement (RWTBS) | yes (`RTWBS.pdf`) | Best Paper Award (confirmed by Luca). **Add the proceedings DOI and update the BibTeX when available**; currently cites the Zenodo record 10.5281/zenodo.22746507 |
 | SEAMS 2026, Runtime Self-Optimization | yes (`RTOPT.pdf`) | DOI 10.1145/3788550.3794861 |
 | MODELS 2026 Companion, Social norm pattern catalog | yes (`norms.pdf`) | DOI 10.1145/3837062.3838903 |
